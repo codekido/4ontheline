@@ -75,4 +75,10 @@ public class GameTest {
 			}
 		}
 	}
+	
+	@Test	
+	public void isEmpty_RestartingTheGame_True(){
+		g.restart();
+		assertTrue(g.isEmpty());
+	}
 }
