@@ -36,5 +36,9 @@ public class Game {
 	public void restart() {
 		emptyBoard = true;
 	}
+
+	public boolean fourOnTheLine(int i) {
+		return false;
+	}
 	
 }
