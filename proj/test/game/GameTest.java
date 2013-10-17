@@ -100,4 +100,13 @@ public class GameTest {
 		g.play(0);
 	}
 	
+	@Test
+	public void fourOnTheLine_MixedPlays_False() throws ColumnExceeded, NonexistingColumn{
+		for (int i=0; i<4; ++i) {
+			g.play(1);		
+		}
+		assertFalse(fourOnTheLine(1));
+	}
+	
+	
 }
