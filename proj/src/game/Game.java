@@ -3,9 +3,10 @@ package game;
 public class Game {
 
 	boolean playerOneTurn = true;
+	boolean emptyBoard = true;
 	
 	public boolean isEmpty() {
-		return true;
+		return emptyBoard;
 	}
 
 	public boolean PlayerOnesTurn() {
@@ -13,6 +14,7 @@ public class Game {
 	}
 
 	public boolean play(int column) {
+		emptyBoard = false;
 		playerOneTurn=!playerOneTurn;
 		return playerOneTurn;
 	}

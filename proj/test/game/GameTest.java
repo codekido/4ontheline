@@ -59,4 +59,11 @@ public class GameTest {
 		assertTrue(g.PlayerOnesTurn());
 	}
 
+	@Test
+	public void exceededColumn_MoreThanSixPlaysInAColumn_True(){
+		for (int i=0; i<6 ; i++){
+			g.play(1);		
+		}
+		assertTrue(g.exceededColumn());
+	}
 }
