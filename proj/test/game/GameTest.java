@@ -36,6 +36,12 @@ public class GameTest {
 	}
 
 	@Test
+	public void IsEmpty_AfterPlay_False() {
+		g.play(1);
+		assertFalse(g.isEmpty());
+	}
+
+	@Test
 	public void IsPlayerOneTurn_FirstTurn_True(){
 		assertTrue(g.PlayerOnesTurn());
 	}
@@ -48,6 +54,7 @@ public class GameTest {
 	
 	@Test 
 	public void IsPlayerOneTurn_AfterPlayerTwoPlays_True(){
+		g.play(1);
 		g.play(1);
 		assertTrue(g.PlayerOnesTurn());
 	}

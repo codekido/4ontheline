@@ -13,7 +13,7 @@ public class Game {
 	}
 
 	public boolean play(int column) {
-		playerOneTurn=false;
+		playerOneTurn=!playerOneTurn;
 		return playerOneTurn;
 	}
 
