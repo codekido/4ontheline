@@ -105,8 +105,7 @@ public class GameTest {
 		for (int i=0; i<4; ++i) {
 			g.play(1);		
 		}
-		assertFalse(fourOnTheLine(1));
-	}
-	
+		assertFalse(g.fourOnTheLine(1));
+	}	
 	
 }
