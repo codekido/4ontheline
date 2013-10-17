@@ -4,3 +4,7 @@
 *.jar
 *.war
 *.ear
+
+# Ramiro a manopla
+.project
+.classpath
