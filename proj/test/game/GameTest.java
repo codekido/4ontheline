@@ -31,18 +31,25 @@ public class GameTest {
 	}
 
 	@Test
-	public void testBoard_IsEmpty_True() {
+	public void IsEmpty_NewGame_True() {
 		assertTrue(g.isEmpty());
 	}
 
 	@Test
-	public void testBoard_IsPlayerOneTurn_True(){
+	public void IsPlayerOneTurn_FirstTurn_True(){
 		assertTrue(g.PlayerOnesTurn());
 	}
 
 	@Test
-	public void testBoard_IsPlayerOneTurn_False(){
-		assertFalse(g.play(1).PlayerOnesTurn());
+	public void IsPlayerOneTurn_AfterPlayerOnePlays_False(){
+		g.play(1);
+		assertFalse(g.PlayerOnesTurn());
+	}
+	
+	@Test 
+	public void IsPlayerOneTurn_AfterPlayerTwoPlays_True(){
+		g.play(1);
+		assertTrue(g.PlayerOnesTurn());
 	}
 
 }
