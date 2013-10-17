@@ -29,13 +29,13 @@ public class GameTest {
 	}
 
 	@Test
-	public void testBoardIsEmptyTrue() {
+	public void testBoard_IsEmpty_True() {
 		assertTrue(g.isEmpty());
 	}
 
 	@Test
-	public void testBoardIsEmptyFalse(){
-		assertFalse(g.isEmpty());
+	public void testBoard_IsPlayerOneTurn_True(){
+		assertTrue(g.PlayerOnesTurn());
 	}
 	
 }
