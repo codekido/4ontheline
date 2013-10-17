@@ -9,6 +9,8 @@ import org.junit.Test;
 
 public class GameTest {
 
+	Game g;
+	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
 	}
@@ -19,7 +21,7 @@ public class GameTest {
 
 	@Before
 	public void setUp() throws Exception {
-		
+		g = new Game();
 	}
 
 	@After
@@ -28,8 +30,12 @@ public class GameTest {
 
 	@Test
 	public void testBoardIsEmptyTrue() {
-		Game g = new Game();
 		assertTrue(g.isEmpty());
 	}
 
+	@Test
+	public void testBoardIsEmptyFalse(){
+		assertFalse(g.isEmpty());
+	}
+	
 }
