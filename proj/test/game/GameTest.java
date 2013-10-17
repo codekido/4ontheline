@@ -88,6 +88,12 @@ public class GameTest {
 		g.restart();
 		assertTrue(g.isEmpty());
 	}
+	
+	@Test (expected=UnexistingColumn.class)
+	public void isValidColumn_PlayingOnColumnEight_False() throws ColumnExceeded {
+		g.play(8);
+		
+	}
 
 
 }

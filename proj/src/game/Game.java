@@ -30,6 +30,7 @@ public class Game {
 	}
 
 	public void restart() {
+		emptyBoard = true;
 	}
 	
 }
