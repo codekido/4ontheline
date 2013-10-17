@@ -77,8 +77,17 @@ public class GameTest {
 	}
 	
 	@Test	
-	public void isEmpty_RestartingTheGame_True(){
+	public void isEmpty_RestartingTheGame_True() {
 		g.restart();
 		assertTrue(g.isEmpty());
 	}
+
+	@Test	
+	public void isEmpty_RestartingTheGameAfterPlaying_True() throws ColumnExceeded {
+		g.play(1);
+		g.restart();
+		assertTrue(g.isEmpty());
+	}
+
+
 }

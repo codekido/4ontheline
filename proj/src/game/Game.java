@@ -6,7 +6,6 @@ public class Game {
 
 	private boolean playerOneTurn = true;
 	private boolean emptyBoard = true;
-	private int playCount = 0;
 	private int[] columnCount = new int[7];	
 	
 	public boolean isEmpty() {
@@ -28,6 +27,9 @@ public class Game {
 			throw new ColumnExceeded();
 		}
 		return playerOneTurn;
+	}
+
+	public void restart() {
 	}
 	
 }
