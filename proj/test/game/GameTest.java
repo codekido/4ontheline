@@ -1,6 +1,7 @@
 package game;
 
 import static org.junit.Assert.*;
+import game.ex.ColumnExceeded;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -36,34 +37,42 @@ public class GameTest {
 	}
 
 	@Test
-	public void IsEmpty_AfterPlay_False() {
+	public void IsEmpty_AfterPlay_False() throws ColumnExceeded {
 		g.play(1);
 		assertFalse(g.isEmpty());
 	}
 
 	@Test
-	public void IsPlayerOneTurn_FirstTurn_True(){
+	public void IsPlayerOneTurn_FirstTurn_True() {
 		assertTrue(g.PlayerOnesTurn());
 	}
 
 	@Test
-	public void IsPlayerOneTurn_AfterPlayerOnePlays_False(){
+	public void IsPlayerOneTurn_AfterPlayerOnePlays_False() throws ColumnExceeded {
 		g.play(1);
 		assertFalse(g.PlayerOnesTurn());
 	}
 	
 	@Test 
-	public void IsPlayerOneTurn_AfterPlayerTwoPlays_True(){
+	public void IsPlayerOneTurn_AfterPlayerTwoPlays_True() throws ColumnExceeded {
 		g.play(1);
 		g.play(1);
 		assertTrue(g.PlayerOnesTurn());
 	}
 
-	@Test
-	public void exceededColumn_MoreThanSixPlaysInAColumn_True(){
-		for (int i=0; i<6 ; i++){
+	@Test(expected=ColumnExceeded.class)
+	public void exceededColumn_MoreThanSixPlaysInAColumn_ThrowsColumnExceeded() throws ColumnExceeded {
+		for (int i=0; i<7; ++i) {
 			g.play(1);		
 		}
-		assertTrue(g.exceededColumn());
+	}
+	
+	@Test()
+	public void exceededColumn_MoreThan6PlaysInSeveralColumns_DoesNotThrowColumnExceeded() throws ColumnExceeded {
+		for (int i=0; i<4; ++i) {
+			for (int col=1; col<=3; ++col) {
+				g.play(col);
+			}
+		}
 	}
 }

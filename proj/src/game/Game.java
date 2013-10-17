@@ -1,9 +1,12 @@
 package game;
 
+import game.ex.ColumnExceeded;
+
 public class Game {
 
-	boolean playerOneTurn = true;
-	boolean emptyBoard = true;
+	private boolean playerOneTurn = true;
+	private boolean emptyBoard = true;
+	private int playCount = 0;
 	
 	public boolean isEmpty() {
 		return emptyBoard;
@@ -13,10 +16,14 @@ public class Game {
 		return playerOneTurn;
 	}
 
-	public boolean play(int column) {
+	public boolean play(int column) throws ColumnExceeded {
 		emptyBoard = false;
 		playerOneTurn=!playerOneTurn;
+		playCount++;
+		if (playCount>6) {
+			throw new ColumnExceeded();
+		}
 		return playerOneTurn;
 	}
-
+	
 }
