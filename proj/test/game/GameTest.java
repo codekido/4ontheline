@@ -2,6 +2,7 @@ package game;
 
 import static org.junit.Assert.*;
 import game.ex.ColumnExceeded;
+import game.ex.NonexistingColumn;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -37,7 +38,7 @@ public class GameTest {
 	}
 
 	@Test
-	public void IsEmpty_AfterPlay_False() throws ColumnExceeded {
+	public void IsEmpty_AfterPlay_False() throws ColumnExceeded, NonexistingColumn {
 		g.play(1);
 		assertFalse(g.isEmpty());
 	}
@@ -48,27 +49,27 @@ public class GameTest {
 	}
 
 	@Test
-	public void IsPlayerOneTurn_AfterPlayerOnePlays_False() throws ColumnExceeded {
+	public void IsPlayerOneTurn_AfterPlayerOnePlays_False() throws ColumnExceeded, NonexistingColumn {
 		g.play(1);
 		assertFalse(g.PlayerOnesTurn());
 	}
 	
 	@Test 
-	public void IsPlayerOneTurn_AfterPlayerTwoPlays_True() throws ColumnExceeded {
+	public void IsPlayerOneTurn_AfterPlayerTwoPlays_True() throws ColumnExceeded, NonexistingColumn {
 		g.play(1);
 		g.play(1);
 		assertTrue(g.PlayerOnesTurn());
 	}
 
 	@Test(expected=ColumnExceeded.class)
-	public void exceededColumn_MoreThanSixPlaysInAColumn_ThrowsColumnExceeded() throws ColumnExceeded {
+	public void exceededColumn_MoreThanSixPlaysInAColumn_ThrowsColumnExceeded() throws ColumnExceeded, NonexistingColumn {
 		for (int i=0; i<7; ++i) {
 			g.play(1);		
 		}
 	}
 	
 	@Test()
-	public void exceededColumn_MoreThan6PlaysInSeveralColumns_DoesNotThrowColumnExceeded() throws ColumnExceeded {
+	public void exceededColumn_MoreThan6PlaysInSeveralColumns_DoesNotThrowColumnExceeded() throws ColumnExceeded, NonexistingColumn {
 		for (int i=0; i<4; ++i) {
 			for (int col=1; col<=3; ++col) {
 				g.play(col);
@@ -83,17 +84,20 @@ public class GameTest {
 	}
 
 	@Test	
-	public void isEmpty_RestartingTheGameAfterPlaying_True() throws ColumnExceeded {
+	public void isEmpty_RestartingTheGameAfterPlaying_True() throws ColumnExceeded, NonexistingColumn {
 		g.play(1);
 		g.restart();
 		assertTrue(g.isEmpty());
 	}
 	
-	@Test (expected=UnexistingColumn.class)
-	public void isValidColumn_PlayingOnColumnEight_False() throws ColumnExceeded {
+	@Test(expected=NonexistingColumn.class)
+	public void isValidColumn_PlayingOnColumnEight_ThrowsNonexistingColumn() throws ColumnExceeded, NonexistingColumn {
 		g.play(8);
-		
 	}
 
-
+	@Test(expected=NonexistingColumn.class)
+	public void isValidColumn_PlayingOnColumnZero_ThrowsNonexistingColumn() throws ColumnExceeded, NonexistingColumn {
+		g.play(0);
+	}
+	
 }

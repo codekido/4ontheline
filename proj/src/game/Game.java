@@ -1,12 +1,14 @@
 package game;
 
 import game.ex.ColumnExceeded;
+import game.ex.NonexistingColumn;
 
 public class Game {
 
+	private int width = 7;
 	private boolean playerOneTurn = true;
 	private boolean emptyBoard = true;
-	private int[] columnCount = new int[7];	
+	private int[] columnCount = new int[width];	
 	
 	public boolean isEmpty() {
 		return emptyBoard;
@@ -16,10 +18,12 @@ public class Game {
 		return playerOneTurn;
 	}
 
-	public boolean play(int column) throws ColumnExceeded {
+	public boolean play(int column) throws ColumnExceeded, NonexistingColumn {
+		if (column>width) {
+			throw new NonexistingColumn();
+		}
 		emptyBoard = false;
 		playerOneTurn=!playerOneTurn;
-		//playCount++;
 		
 		columnCount[column] = ++columnCount[column];
 		
