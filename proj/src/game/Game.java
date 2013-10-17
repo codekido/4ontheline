@@ -19,7 +19,7 @@ public class Game {
 	}
 
 	public boolean play(int column) throws ColumnExceeded, NonexistingColumn {
-		if (column>width) {
+		if (column>width || column<1 ) {
 			throw new NonexistingColumn();
 		}
 		emptyBoard = false;
