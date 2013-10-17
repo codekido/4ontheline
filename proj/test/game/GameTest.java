@@ -1,3 +1,5 @@
+package game;
+
 import static org.junit.Assert.*;
 
 import org.junit.After;
@@ -37,5 +39,10 @@ public class GameTest {
 	public void testBoard_IsPlayerOneTurn_True(){
 		assertTrue(g.PlayerOnesTurn());
 	}
-	
+
+	@Test
+	public void testBoard_IsPlayerOneTurn_False(){
+		assertFalse(g.play(1).PlayerOnesTurn());
+	}
+
 }
