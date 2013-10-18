@@ -139,5 +139,18 @@ public class GameTest {
 		assertTrue(g.fourOnTheLine());
 		
 	}
+	
+	@Test
+	public void fourOnTheLine_OneWinnerHorizontal_True() throws ColumnExceeded, NonexistingColumn {
+		g.play(1);
+		g.play(7);
+		g.play(2);
+		g.play(6);
+		g.play(3);
+		g.play(5);
+		g.play(4);
+		
+		assertTrue("Player 1 should win (4 horizontal in the bottom left)", g.fourOnTheLine());
+	}
 
 }
