@@ -20,23 +20,33 @@ public class Game {
 	}
 
 	public boolean play(int column) throws ColumnExceeded, NonexistingColumn {
-		if (column>width || column<1 ) {
-			throw new NonexistingColumn();
-		}
-		emptyBoard = false;
 		
+		isValidColumn(column);
+		emptyBoard = false;
 		
 		if (playerOneTurn) ++p1AllignedVertical;
 		
-		playerOneTurn=!playerOneTurn;
+		switchTurn();
+		addChipToColumn(column);
 		
+		return playerOneTurn;
+	}
+
+	private void isValidColumn(int column) throws NonexistingColumn {
+		if (column>width || column<1 ) {
+			throw new NonexistingColumn();
+		}
+	}
+
+	private void addChipToColumn(int column) throws ColumnExceeded{
 		columnCount[column] = ++columnCount[column];
-		
-		
 		if (columnCount[column]>6) {
 			throw new ColumnExceeded();
 		}
-		return playerOneTurn;
+	}
+
+	private void switchTurn() {
+		playerOneTurn=!playerOneTurn;
 	}
 
 	public void restart() {
