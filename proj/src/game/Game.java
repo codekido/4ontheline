@@ -53,7 +53,7 @@ public class Game {
 		emptyBoard = true;
 	}
 
-	public boolean fourOnTheLine(int i) {
+	public boolean fourOnTheLine() {
 		if (p1AllignedVertical == 4) return true;
 		return false;
 	}
