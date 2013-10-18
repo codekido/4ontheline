@@ -9,6 +9,7 @@ public class Game {
 	private boolean playerOneTurn = true;
 	private boolean emptyBoard = true;
 	private int[] columnCount = new int[width];	
+	private int p1AllignedVertical = 0;
 	
 	public boolean isEmpty() {
 		return emptyBoard;
@@ -23,9 +24,14 @@ public class Game {
 			throw new NonexistingColumn();
 		}
 		emptyBoard = false;
+		
+		
+		if (playerOneTurn) ++p1AllignedVertical;
+		
 		playerOneTurn=!playerOneTurn;
 		
 		columnCount[column] = ++columnCount[column];
+		
 		
 		if (columnCount[column]>6) {
 			throw new ColumnExceeded();
@@ -38,6 +44,7 @@ public class Game {
 	}
 
 	public boolean fourOnTheLine(int i) {
+		if (p1AllignedVertical == 4) return true;
 		return false;
 	}
 	
