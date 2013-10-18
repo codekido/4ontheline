@@ -8,7 +8,7 @@ public class Game {
 	private int width = 7;
 	private boolean playerOneTurn = true;
 	private boolean emptyBoard = true;
-	private int[] columnCount = new int[width];	
+	private int[] columnCount = new int[width+1];	
 	private int p1AllignedVertical = 0;
 	
 	public boolean isEmpty() {
