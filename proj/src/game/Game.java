@@ -10,6 +10,7 @@ public class Game {
 	private boolean emptyBoard = true;
 	private int[] columnCount = new int[width+1];	
 	private int p1AllignedVertical = 0;
+	private int p1AlignedDiagonal = 0;
 	
 	public boolean isEmpty() {
 		return emptyBoard;
@@ -25,6 +26,7 @@ public class Game {
 		emptyBoard = false;
 		
 		if (playerOneTurn) ++p1AllignedVertical;
+		if (playerOneTurn) ++p1AlignedDiagonal;
 		
 		switchTurn();
 		addChipToColumn(column);
@@ -55,6 +57,7 @@ public class Game {
 
 	public boolean fourOnTheLine() {
 		if (p1AllignedVertical == 4) return true;
+		if (p1AlignedDiagonal  == 7) return true;
 		return false;
 	}
 	
