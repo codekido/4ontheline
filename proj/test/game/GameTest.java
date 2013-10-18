@@ -109,7 +109,7 @@ public class GameTest {
 	}	
 
 	@Test
-	public void fourOnTheLine_OneWinner_False() throws ColumnExceeded, NonexistingColumn{
+	public void fourOnTheLine_OneWinner_True() throws ColumnExceeded, NonexistingColumn{
 		for (int i=0; i<3; ++i) {
 			// each player plays 3 moves in their column
 			for (int player=1; player<=2; ++player) {
@@ -117,7 +117,7 @@ public class GameTest {
 			}			
 		}
 		g.play(1); // player 1 plays 4th in col 1 and wins
-		assertFalse(g.fourOnTheLine(1));
+		assertTrue(g.fourOnTheLine(1));
 	}
 
 }
