@@ -152,5 +152,19 @@ public class GameTest {
 		
 		assertTrue("Player 1 should win (4 horizontal in the bottom left)", g.fourOnTheLine());
 	}
+	
+	@Test
+	public void fourOnTheLine_PlayeresSwapAtThree_False() throws ColumnExceeded, NonexistingColumn {
+		for (int i=0; i<3; ++i) {
+			g.play(1);
+			g.play(2);
+		}
+		for (int i=0; i<3; i++) {
+			g.play(2);
+			g.play(1);
+		}
+		
+		assertFalse(g.fourOnTheLine());
+	}	
 
 }
