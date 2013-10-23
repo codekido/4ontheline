@@ -8,7 +8,8 @@ public class Game {
 	private int width = 7;
 	private boolean playerOneTurn = true;
 	private boolean emptyBoard = true;
-	private int[] columnCount = new int[width+1];	
+	private int[] columnCount = new int[width+1];
+	private boolean[][] columns = new boolean[width+1][6];
 	private int p1AlignedVertical = 0;
 	private int p1AlignedDiagonal = 0;
 	
@@ -41,10 +42,11 @@ public class Game {
 	}
 
 	private void addChipToColumn(int column) throws ColumnExceeded{
-		columnCount[column] = ++columnCount[column];
+		columnCount[column]++;
 		if (columnCount[column]>6) {
 			throw new ColumnExceeded();
 		}
+		columns[column][columnCount[column]-1] = playerOneTurn;
 	}
 
 	private void switchTurn() {
