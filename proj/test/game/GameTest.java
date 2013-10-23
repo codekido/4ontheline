@@ -1,6 +1,7 @@
 package game;
 
 import static org.junit.Assert.*;
+import game.ex.CannotMoveAfterFinished;
 import game.ex.ColumnExceeded;
 import game.ex.NonexistingColumn;
 
