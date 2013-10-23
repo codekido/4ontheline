@@ -12,6 +12,7 @@ public class Game {
 	private boolean[][] columns = new boolean[width+1][6];
 	private int p1AlignedVertical = 0;
 	private int p1AlignedDiagonal = 0;
+	private int p1AlignedHorizontal = 0;
 	
 	public boolean isEmpty() {
 		return emptyBoard;
@@ -26,11 +27,23 @@ public class Game {
 		isValidColumn(column);
 		emptyBoard = false;
 		
-		if (playerOneTurn) ++p1AlignedVertical;
-		if (playerOneTurn) ++p1AlignedDiagonal;
-		
 		switchTurn();
-		addChipToColumn(column);
+
+		int height = addChipToColumn(column);
+		
+		if (playerOneTurn) {
+			try {
+				if (columns[column][height-1] == true) ++p1AlignedVertical;
+				if (columns[column-1][height] == true) ++p1AlignedHorizontal;
+				if (columns[column+1][height] == true) ++p1AlignedHorizontal;
+				if (columns[column-1][height-1] == true) ++p1AlignedDiagonal;
+				if (columns[column+1][height+1] == true) ++p1AlignedDiagonal;
+				if (columns[column+1][height-1] == true) ++p1AlignedDiagonal;
+				if (columns[column-1][height+1] == true) ++p1AlignedDiagonal;
+			} catch (IndexOutOfBoundsException e) {
+				// Ha! Cleverly ignoring cells out of the board :)
+			}
+		}		
 		
 		return playerOneTurn;
 	}
@@ -41,12 +54,13 @@ public class Game {
 		}
 	}
 
-	private void addChipToColumn(int column) throws ColumnExceeded{
+	private int addChipToColumn(int column) throws ColumnExceeded{
 		columnCount[column]++;
 		if (columnCount[column]>6) {
 			throw new ColumnExceeded();
 		}
 		columns[column][columnCount[column]-1] = playerOneTurn;
+		return columnCount[column];
 	}
 
 	private void switchTurn() {
