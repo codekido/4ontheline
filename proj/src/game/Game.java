@@ -1,6 +1,8 @@
 package game;
 
+import game.ex.CannotMoveAfterFinished;
 import game.ex.ColumnExceeded;
+import game.ex.InvalidMove;
 import game.ex.NonexistingColumn;
 
 public class Game {
@@ -9,7 +11,7 @@ public class Game {
 	private boolean playerOneTurn = true;
 	private boolean emptyBoard = true;
 	private int[] columnCount = new int[width+1];
-	private boolean[][] columns = new boolean[width+1][6];
+	private int[][] columns = new int[width+1][6];
 	private int p1AlignedVertical = 0;
 	private int p1AlignedDiagonal = 0;
 	private int p1AlignedHorizontal = 0;
@@ -22,30 +24,68 @@ public class Game {
 		return playerOneTurn;
 	}
 
-	public boolean play(int column) throws ColumnExceeded, NonexistingColumn {
-		
+	public boolean play(int column) throws InvalidMove {
+		checkWinner();
 		isValidColumn(column);
 		emptyBoard = false;
-		
+		addChipToColumn(column);
 		switchTurn();
-
-		int height = addChipToColumn(column);
-		
-		if (playerOneTurn) {
-			try {
-				if (columns[column][height-1] == true) ++p1AlignedVertical;
-				if (columns[column-1][height] == true) ++p1AlignedHorizontal;
-				if (columns[column+1][height] == true) ++p1AlignedHorizontal;
-				if (columns[column-1][height-1] == true) ++p1AlignedDiagonal;
-				if (columns[column+1][height+1] == true) ++p1AlignedDiagonal;
-				if (columns[column+1][height-1] == true) ++p1AlignedDiagonal;
-				if (columns[column-1][height+1] == true) ++p1AlignedDiagonal;
-			} catch (IndexOutOfBoundsException e) {
-				// Ha! Cleverly ignoring cells out of the board :)
-			}
-		}		
-		
 		return playerOneTurn;
+	}
+
+
+	private void checkWinner() throws CannotMoveAfterFinished {
+		checkRows();
+		checkCols();
+		checkDiag();
+	}
+	
+	
+
+	private void checkCols() throws CannotMoveAfterFinished {
+		for (int col=1; col<=width; ++col) {
+			checkCol(col);
+		}
+	}
+
+	private void checkDiag() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void checkRows() throws CannotMoveAfterFinished {
+		for (int row=0; row<6; ++row) {
+			checkCol(row);
+		}
+	}
+
+	private void checkCol(int col) throws CannotMoveAfterFinished {
+		int p1chips = 0;
+		int p2chips = 0;
+		for (int pos=0; pos<6; ++pos) {
+			switch (columns[col][pos]) {
+			case 1: ++p1chips;
+			case 2: ++p2chips;
+			}
+		}
+		if (p1chips>3 || p2chips>3) {
+			throw new CannotMoveAfterFinished();
+		}
+	}
+
+	private boolean checkRow(int row) {
+		int p1chips = 0;
+		int p2chips = 0;
+		for (int col=1; col<=7; ++col) {
+			switch (columns[col][row]) {
+			case 1: ++p1chips;
+			case 2: ++p2chips;
+			}
+		}
+		if (p1chips>3 || p2chips>3) {
+			return true;
+		}
+		return false;
 	}
 
 	private void isValidColumn(int column) throws NonexistingColumn {
@@ -55,12 +95,13 @@ public class Game {
 	}
 
 	private int addChipToColumn(int column) throws ColumnExceeded{
-		columnCount[column]++;
-		if (columnCount[column]>6) {
+		int position = columnCount[column];
+		if (position > 5) {
 			throw new ColumnExceeded();
 		}
-		columns[column][columnCount[column]-1] = playerOneTurn;
-		return columnCount[column];
+		columns[column][position] = playerOneTurn ? 1 : 2;
+		columnCount[column]++;
+		return position;
 	}
 
 	private void switchTurn() {
@@ -72,8 +113,9 @@ public class Game {
 	}
 
 	public boolean fourOnTheLine() {
-		if (p1AlignedVertical == 4) return true;
-		if (p1AlignedDiagonal  == 7) return true;
+		if (p1AlignedVertical >= 4) return true;
+		if (p1AlignedDiagonal >= 7) return true;
+		if (p1AlignedHorizontal >= 4) return true;
 		return false;
 	}
 	

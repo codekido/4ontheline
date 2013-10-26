@@ -1,5 +1,5 @@
 package game.ex;
 
-public class CannotMoveAfterFinished extends InvalidMove {
+public class NonexistingColumn extends InvalidMove {
 	private static final long serialVersionUID = 1L;
 }

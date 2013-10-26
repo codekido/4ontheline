@@ -117,8 +117,8 @@ public class GameTest {
 				g.play(player);		
 			}			
 		}
-		g.play(1); // player 1 plays 4th in col 1 and wins
-		assertTrue(g.fourOnTheLine());
+		g.play(1);
+		assertTrue("Player 1 should win by playing 4th in column 1", g.fourOnTheLine());
 	}
 	
 	@Test
